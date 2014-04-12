@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="city" catalog="lifecircle" class="City"></table>
+	<table name="order" catalog="lifecircle" class="Order"></table>
+	<table name="product" catalog="lifecircle" class="Product"></table>
+	<table name="store" catalog="lifecircle" class="Store"></table>
+	<table name="type" catalog="lifecircle" class="Type"></table>
+	<table name="user" catalog="lifecircle" class="User"></table>
+</hibernate-reverse-engineering>

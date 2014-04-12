@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+ 	
+<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/lifecircle?useUnicode=true&amp;characterEncoding=UTF-8">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="admin"></property>
+		
+		
+	</bean>
+
+
+
+	
+<!-- sessionFactory -->
+	<!-- <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	 
+		 <property name="exposeTransactionAwareSessionFactory"><value>false</value></property>
+     
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>  
+        		
+        		
+        	</props> 
+			 
+		</property>
+	</bean>	 -->
+	
+		<!-- 指定映射文件 -->
+		<!-- <property name="mappingResources">
+			<list>
+				<value>com/hl/taxinfo/model/TaxAllInfo.hbm.xml</value>
+				</list>
+		</property> -->
+		<!-- <property name="annotatedClasses">
+			<list>
+				<value>com.leyou.user.model.MapComment</value>
+				<value>com.leyou.user.model.MicroBlogPic</value>
+				<value>com.leyou.user.model.ActivityParticipator</value>
+			</list>
+		</property>
+ -->		
+	
+
+	
+	   
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+     <!-- 定义事务管理器（声明式的事务） -->  
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+	
+	<!-- 用注解方式注入bean -->   
+<!-- 	<context:annotation-config />
+	<context:component-scan base-package="com.leyou.scenic.model" /> -->  
+	
+	<!--  <context:annotation-config /> -->
+	 <!-- 该 BeanPostProcessor 将自动起作用，对标注 @Autowired 的 Bean 进行自动注入 -->
+     
+  <!--    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	
+    <context:component-scan base-package="com.hl" />   -->
+<!--   <bean id="dataSource"
+  	class="org.apache.commons.dbcp.BasicDataSource">
+  	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+  	<property name="url" value="jdbc:mysql://localhost:3306/leyou"></property>
+  	<property name="username" value="root"></property>
+  	<property name="password" value="admin"></property>
+  </bean>
+  <bean id="sessionFactory"
+  	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+  	<property name="dataSource">
+  		<ref bean="dataSource" />
+  	</property>
+  	<property name="hibernateProperties">
+  		<props>
+  			<prop key="hibernate.dialect">
+  				org.hibernate.dialect.MySQLDialect
+  			</prop>
+  			<prop key="hibernate.hbm2ddl.auto">update</prop>
+  		</props>
+  	</property>
+  </bean> -->
+  
+<!-- DAO -->  
+ <!--  <bean id="mapCommentDAO" class="com.leyou.user.daoimpl.MapCommentDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  
+   -->
+   
+   
+   <!-- 
+ <bean id="dataSource"
+ 	class="org.apache.commons.dbcp.BasicDataSource">
+ 	<property name="url"
+ 		value="jdbc:mysql://localhost:3306/lifecircle">
+ 	</property>
+ 	<property name="username" value="root"></property>
+ 	<property name="password" value="admin"></property>
+ </bean>
+ -->
+  <bean id="sessionFactory"
+ 	class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+ 	<property name="dataSource">
+ 		<ref bean="dataSource" />
+ 	</property>
+ 	<property name="hibernateProperties">
+ 		<props>
+ 			<prop key="hibernate.dialect">
+ 				org.hibernate.dialect.MySQLDialect
+ 			</prop>
+ 		</props>
+ 	</property>
+ 	<property name="mappingResources">
+ 		<list>
+ 			<value>com/wjw/lifecircle/model/User.hbm.xml</value>
+ 			<value>com/wjw/lifecircle/model/Product.hbm.xml</value>
+ 			<value>com/wjw/lifecircle/model/Store.hbm.xml</value>
+ 			<value>com/wjw/lifecircle/model/Type.hbm.xml</value>
+ 			<value>com/wjw/lifecircle/model/Order.hbm.xml</value>
+ 			<value>com/wjw/lifecircle/model/City.hbm.xml</value></list>
+ 	</property>
+ 	
+ </bean> 
+ 
+  
+  <bean id="userDAO" class="com.wjw.lifecircle.dao.UserDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  <bean id="productDAO" class="com.wjw.lifecircle.dao.ProductDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  <bean id="storeDAO" class="com.wjw.lifecircle.dao.StoreDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  <bean id="typeDAO" class="com.wjw.lifecircle.dao.TypeDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  <bean id="orderDAO" class="com.wjw.lifecircle.dao.OrderDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  <bean id="cityDAO" class="com.wjw.lifecircle.dao.CityDAOImpl">
+  	<property name="sessionFactory">
+  		<ref bean="sessionFactory" />
+  	</property>
+  </bean>
+  
+  
+  <!-- Action -->
+  <bean id="userAction" class="com.wjw.lifecircle.action.UserAction">
+  	<property name="userDAO">
+  		<ref bean="userDAO" />
+  	</property>
+  </bean>
+  
+  
+  <bean id="productAction" class="com.wjw.lifecircle.action.ProductAction">
+  	<property name="productDAO">
+  		<ref bean="productDAO" />
+  	</property>
+  	<property name="storeDAO">
+  		<ref bean="storeDAO" />
+  	</property>
+  </bean>  
+
+  <bean id="orderAction" class="com.wjw.lifecircle.action.OrderAction">
+  	<property name="userDAO">
+  		<ref bean="userDAO" />
+  	</property>
+  	<property name="productDAO">
+  		<ref bean="productDAO" />
+  	</property>
+  	<property name="orderDAO">
+  		<ref bean="orderDAO" />
+  	</property>
+  </bean>  
+  
+  </beans>

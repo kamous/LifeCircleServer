@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+  	  	<!--<constant name="struts.objectFactory" value="spring" />-->
+  	<constant name="sstruts.configuration.xml.reload" value="true"></constant>
+	
+    <constant name="struts.devMode" value="true" /> 
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+  	  	<!--<constant name="struts.objectFactory" value="spring" />-->
+
+	
+<package name="user" extends="json-default" namespace="/">
+  	  
+  	
+  	  <!-- Action 异常拦截器 -->
+  	  <interceptors>
+		<interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
+	  </interceptors>
+	  
+	  <!-- global-results -->
+  	  <global-results>
+           <result name="error">
+           		<param name="includeProperties">error</param>
+           </result>
+       </global-results>
+       
+       
+  	  <!-- global-exception-mappings必需在action的上面 -->  
+       <global-exception-mappings>  
+            <exception-mapping result="error" exception="java.lang.Exception">  
+                </exception-mapping>              
+                
+        </global-exception-mappings>  
+        
+      <action name="userAction" class="userAction">
+  	 </action> 
+  	 
+  	 <action name="productAction" class="productAction">
+  	 </action> 
+  	 
+  	  <action name="orderAction" class="orderAction">
+  	 </action> 
+  	 
+	</package>
+	</struts>
